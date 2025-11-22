@@ -98,7 +98,7 @@ export class AdvancedScoringEngine {
   private async getPipeline(task: string, model: string) {
     const key = `${task}-${model}`;
     if (!this.transformersPipelines.has(key)) {
-      this.transformersPipelines.set(key, await pipeline(task, model));
+      this.transformersPipelines.set(key, await pipeline(task as any, model));
     }
     return this.transformersPipelines.get(key);
   }
