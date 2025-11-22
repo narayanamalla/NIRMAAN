@@ -403,7 +403,7 @@ export class AdvancedScoringEngine {
           "Well-structured discourse",
           "Coherent narrative progression"
         ] : [],
-        detectedIssues: coherenceAnalysis.insights.coherenceIssues?.map(issue =>
+        detectedIssues: coherenceAnalysis.insights.coherenceIssues?.map((issue: any) =>
           `Sentence ${issue.sentenceIndex + 1} has low coherence (${(issue.similarity * 100).toFixed(0)}% similarity)`
         ) || []
       }
