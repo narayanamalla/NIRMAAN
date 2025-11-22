@@ -49,7 +49,10 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ transcript }),
+        body: JSON.stringify({
+          transcript,
+          duration: duration ? parseFloat(duration) : 0
+        }),
       });
 
       if (!response.ok) {
