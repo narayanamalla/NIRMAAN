@@ -7,6 +7,12 @@ interface MetricScore {
   score: number;
   maxScore: number;
   details: string;
+  nlpInsights?: {
+    modelAnalysis?: string;
+    recommendations?: string[];
+    detectedIssues?: string[];
+    detectedStrengths?: string[];
+  };
 }
 
 interface CriterionScore {
@@ -24,6 +30,22 @@ interface ScoreResult {
   duration: number;
   speechRate: number;
   criteria: CriterionScore[];
+  advancedInsights?: {
+    ruleBasedFeedback: string[];
+    semanticFeedback: string[];
+    nlpFeedback: string[];
+    tieredRecommendations: {
+      ruleBased: string[];
+      semantic: string[];
+      advancedNLP: string[];
+    };
+  };
+  concisenessAnalysis?: {
+    originalLength: number;
+    summary: string;
+    coreMessageDensity: number;
+    missingKeywords: string[];
+  };
 }
 
 export default function Home() {
