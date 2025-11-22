@@ -2,18 +2,27 @@
 
 import { useState } from 'react';
 
+interface MetricScore {
+  name: string;
+  score: number;
+  maxScore: number;
+  details: string;
+}
+
 interface CriterionScore {
   name: string;
   score: number;
+  maxScore: number;
   weight: number;
-  semanticSimilarity: number;
-  keywordsFound: string[];
-  feedback: string;
+  metrics: MetricScore[];
 }
 
 interface ScoreResult {
   overallScore: number;
+  maxOverallScore: number;
   wordCount: number;
+  duration: number;
+  speechRate: number;
   criteria: CriterionScore[];
 }
 
