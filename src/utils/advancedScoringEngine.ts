@@ -392,7 +392,7 @@ export class AdvancedScoringEngine {
       nlpInsights: {
         modelAnalysis: `Discourse coherence analysis shows ${coherenceAnalysis.insights.averageCoherence?.toFixed(2) || 'N/A'} average similarity between sentences`,
         recommendations: coherenceAnalysis.insights.coherenceIssues?.length > 0 ? [
-          ...coherenceAnalysis.insights.coherenceIssues.slice(0, 2).map(issue =>
+          ...coherenceAnalysis.insights.coherenceIssues.slice(0, 2).map((issue: any) =>
             `Consider improving the transition: "${issue.sentence.substring(0, 50)}..."`
           ),
           "Add transition phrases between topics",
