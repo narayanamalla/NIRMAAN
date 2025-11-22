@@ -1,29 +1,110 @@
 {
-  "title": "Self-Introduction Rubric",
+  "title": "Self-Introduction Case Study Rubric",
   "criteria": [
     {
-      "name": "Clarity and Conciseness",
-      "description": "The student's introduction is clear, concise, and easy to understand.",
-      "weight": 0.25,
-      "keywords": ["clear", "concise", "specific", "relevant"],
-      "minWords": 40,
-      "maxWords": 60
+      "name": "Content & Structure",
+      "weight": 0.40,
+      "metrics": [
+        {
+          "name": "Salutation Level",
+          "scoringCriteria": {
+            "No Salutation": 0,
+            "Normal": 2,
+            "Good": 4,
+            "Excellent": 5
+          },
+          "weight": 5,
+          "keywords": ["hello", "hi", "good morning", "good afternoon", "good evening", "good day", "hello everyone", "excited", "feeling great"]
+        },
+        {
+          "name": "Key Word Presence",
+          "mustHave": {
+            "keywords": ["name", "age", "class", "school", "family", "hobbies", "interests", "like", "play"],
+            "scoreEach": 4,
+            "maxScore": 20
+          },
+          "goodToHave": {
+            "keywords": ["about family", "from", "ambition", "goal", "dream", "fun fact", "interesting", "unique", "strength", "achievement"],
+            "scoreEach": 2,
+            "maxScore": 10
+          },
+          "weight": 30
+        },
+        {
+          "name": "Flow",
+          "scoringCriteria": {
+            "Order followed": 5,
+            "Order not followed": 0
+          },
+          "weight": 5,
+          "expectedOrder": ["salutation", "basic details", "additional details", "closing"]
+        }
+      ]
     },
     {
-      "name": "Professionalism",
-      "description": "The student uses professional language and tone.",
-      "weight": 0.25,
-      "keywords": ["professional", "experienced", "skilled", "background"],
-      "minWords": 50,
-      "maxWords": 80
+      "name": "Speech Rate",
+      "weight": 0.10,
+      "scoringCriteria": {
+        "Too Fast": {"min": 161, "max": 999, "score": 2},
+        "Fast": {"min": 141, "max": 160, "score": 6},
+        "Ideal": {"min": 111, "max": 140, "score": 10},
+        "Slow": {"min": 81, "max": 110, "score": 6},
+        "Too Slow": {"min": 0, "max": 80, "score": 2}
+      },
+      "weight": 10
     },
     {
-      "name": "Relevance",
-      "description": "The introduction is relevant to the context and audience.",
-      "weight": 0.5,
-      "keywords": ["relevant", "audience", "context", "purpose"],
-      "minWords": 30,
-      "maxWords": 50
+      "name": "Language & Grammar",
+      "weight": 0.20,
+      "metrics": [
+        {
+          "name": "Grammar Errors",
+          "weight": 10,
+          "scoringCriteria": {
+            "excellent": {"min": 0.9, "max": 1.0, "score": 10},
+            "good": {"min": 0.7, "max": 0.89, "score": 8},
+            "average": {"min": 0.5, "max": 0.69, "score": 6},
+            "below average": {"min": 0.3, "max": 0.49, "score": 4},
+            "poor": {"min": 0.0, "max": 0.29, "score": 2}
+          }
+        },
+        {
+          "name": "Vocabulary Richness (TTR)",
+          "weight": 10,
+          "scoringCriteria": {
+            "excellent": {"min": 0.9, "max": 1.0, "score": 10},
+            "good": {"min": 0.7, "max": 0.89, "score": 8},
+            "average": {"min": 0.5, "max": 0.69, "score": 6},
+            "below average": {"min": 0.3, "max": 0.49, "score": 4},
+            "poor": {"min": 0.0, "max": 0.29, "score": 2}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clarity",
+      "weight": 0.15,
+      "scoringCriteria": {
+        "excellent": {"min": 0, "max": 3, "score": 15},
+        "good": {"min": 4, "max": 6, "score": 12},
+        "average": {"min": 7, "max": 9, "score": 9},
+        "below average": {"min": 10, "max": 12, "score": 6},
+        "poor": {"min": 13, "max": 999, "score": 3}
+      },
+      "weight": 15,
+      "fillerWords": ["um", "uh", "like", "you know", "so", "actually", "basically", "right", "i mean", "well", "kinda", "sort of", "okay", "hmm", "ah"]
+    },
+    {
+      "name": "Engagement",
+      "weight": 0.15,
+      "scoringCriteria": {
+        "excellent": {"min": 0.9, "max": 1.0, "score": 15},
+        "good": {"min": 0.7, "max": 0.89, "score": 12},
+        "average": {"min": 0.5, "max": 0.69, "score": 9},
+        "below average": {"min": 0.3, "max": 0.49, "score": 6},
+        "poor": {"min": 0.0, "max": 0.29, "score": 3}
+      },
+      "weight": 15
     }
   ]
 }
