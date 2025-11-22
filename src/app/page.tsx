@@ -7,6 +7,12 @@ interface MetricScore {
   score: number;
   maxScore: number;
   details: string;
+  nlpInsights?: {
+    modelAnalysis?: string;
+    recommendations?: string[];
+    detectedIssues?: string[];
+    detectedStrengths?: string[];
+  };
 }
 
 interface CriterionScore {
@@ -24,6 +30,22 @@ interface ScoreResult {
   duration: number;
   speechRate: number;
   criteria: CriterionScore[];
+  advancedInsights?: {
+    ruleBasedFeedback: string[];
+    semanticFeedback: string[];
+    nlpFeedback: string[];
+    tieredRecommendations: {
+      ruleBased: string[];
+      semantic: string[];
+      advancedNLP: string[];
+    };
+  };
+  concisenessAnalysis?: {
+    originalLength: number;
+    summary: string;
+    coreMessageDensity: number;
+    missingKeywords: string[];
+  };
 }
 
 export default function Home() {
@@ -454,6 +476,26 @@ Example: 'Hello everyone, my name is Sarah. I am 15 years old and I'm studying i
                                 <div className="text-xs text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">
                                   {metric.details}
                                 </div>
+                                {metric.nlpInsights && (
+                                  <div className="mt-2 p-2 bg-blue-50 dark:bg-blue-900/20 rounded border-l-2 border-blue-300 dark:border-blue-600">
+                                    <div className="text-xs font-medium text-blue-800 dark:text-blue-200 mb-1">
+                                      🤖 AI Analysis
+                                    </div>
+                                    <div className="text-xs text-blue-600 dark:text-blue-300">
+                                      {metric.nlpInsights.modelAnalysis}
+                                    </div>
+                                    {metric.nlpInsights.recommendations && metric.nlpInsights.recommendations.length > 0 && (
+                                      <div className="mt-1">
+                                        <span className="text-xs font-medium text-blue-700 dark:text-blue-300">💡 Suggestions:</span>
+                                        <ul className="mt-1 ml-2 text-xs text-blue-600 dark:text-blue-400 space-y-1">
+                                          {metric.nlpInsights.recommendations.slice(0, 2).map((rec, idx) => (
+                                            <li key={idx}>• {rec}</li>
+                                          ))}
+                                        </ul>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
                                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
                                   <div
                                     className={`h-full rounded-full transition-all duration-1000 ease-out ${getProgressColor(metric.score, metric.maxScore)}`}
@@ -478,6 +520,161 @@ Example: 'Hello everyone, my name is Sarah. I am 15 years old and I'm studying i
                   </div>
                 </div>
               </div>
+              {/* Advanced Insights Section */}
+              {result.advancedInsights && (
+                <div className="group relative">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
+                  <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+                    <div className="bg-gradient-to-r from-indigo-500 to-blue-600 px-6 py-4">
+                      <h2 className="text-2xl font-bold text-white flex items-center">
+                        <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657a8 8 0 111.414 1.414m2.828 9.9a8 8 0 10-1.414 1.414" />
+                          </svg>
+                        </div>
+                        AI-Powered Insights
+                      </h2>
+                    </div>
+                    <div className="p-6">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Rule-Based Insights */}
+                        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl p-6 border border-yellow-200/50 dark:border-yellow-700/50">
+                          <div className="flex items-center mb-4">
+                            <div className="w-8 h-8 bg-yellow-500 rounded-lg flex items-center justify-center mr-3">
+                              <span className="text-white font-bold text-sm">R</span>
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">Rule-Based Analysis</h3>
+                          </div>
+                          <div className="space-y-3">
+                            {result.advancedInsights.tieredRecommendations.ruleBased.length > 0 ? (
+                              <div className="space-y-2">
+                                {result.advancedInsights.tieredRecommendations.ruleBased.slice(0, 4).map((rec, idx) => (
+                                  <div key={idx} className="flex items-start">
+                                    <svg className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                                    </svg>
+                                    <span className="text-sm text-gray-700 dark:text-gray-300">{rec}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-sm text-gray-500 dark:text-gray-400 italic">No rule-based issues detected</p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Semantic Insights */}
+                        <div className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-6 border border-blue-200/50 dark:border-blue-700/50">
+                          <div className="flex items-center mb-4">
+                            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
+                              <span className="text-white font-bold text-sm">S</span>
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">Semantic Analysis</h3>
+                          </div>
+                          <div className="space-y-3">
+                            {result.advancedInsights.tieredRecommendations.semantic.length > 0 ? (
+                              <div className="space-y-2">
+                                {result.advancedInsights.tieredRecommendations.semantic.slice(0, 4).map((rec, idx) => (
+                                  <div key={idx} className="flex items-start">
+                                    <svg className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 00-2 0v4a1 1 0 001 1h1a1 1 0 100-2V6a1 1 0 00-1-1H9z" />
+                                    </svg>
+                                    <span className="text-sm text-gray-700 dark:text-gray-300">{rec}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-sm text-gray-500 dark:text-gray-400 italic">Semantic analysis complete</p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Advanced NLP Insights */}
+                        <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-6 border border-purple-200/50 dark:border-purple-700/50">
+                          <div className="flex items-center mb-4">
+                            <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center mr-3">
+                              <span className="text-white font-bold text-sm">AI</span>
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">Advanced NLP</h3>
+                          </div>
+                          <div className="space-y-3">
+                            {result.advancedInsights.tieredRecommendations.advancedNLP.length > 0 ? (
+                              <div className="space-y-2">
+                                {result.advancedInsights.tieredRecommendations.advancedNLP.slice(0, 4).map((rec, idx) => (
+                                  <div key={idx} className="flex items-start">
+                                    <svg className="w-4 h-4 text-purple-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 1.142c.118.11.16.23.216.332.074.114.153.198.225.331.08.113.215.21.309.335.142.2.375.333l1.36-1.36c.16-.16.341-.335.309-.335 0-.054.006-.107.018-.16.074-.219.174-.352.246-.544.102-.197.227-.416.332-.617.264-.542-.337-.8-.2-.426-.097-.165-.039-.277-.01-.17.006-.286-.015-.44zm.217-1.234c-.14.222-.339.398-.543.115-.174.242-.303.334-.4.098.084.165.2.249.32.084.135.191.254.354.064.138.092.309.064.452-.028.158-.039.344-.094.31.08-.207.134-.2.442-.263.117-.219.246-.335.398-.109.18-.263.428-.417.153-.189.281-.324.433-.154.164-.28.3.42.492.124.23.207.404.343.154.214.308.426.517.056.106.11.193.165.384.032.215.032.435 0 .437-.01.807-.01 1.142zm.17-2.39c.049-.18.113-.353.263-.565.137-.21.3-.373.565-.657.234-.385.523-.565.657-.234.183-.31.297-.52.074.099.143.198.233.286.058.09.08.188.172.383.021.354.008.738.014 1.126.008.473.006.894-.01 1.42z" />
+                                    </svg>
+                                    <span className="text-sm text-gray-700 dark:text-gray-300">{rec}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-sm text-gray-500 dark:text-gray-400 italic">No advanced NLP recommendations</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Conciseness Analysis */}
+              {result.concisenessAnalysis && (
+                <div className="group relative">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500 to-teal-600 rounded-2xl opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
+                  <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+                    <div className="bg-gradient-to-r from-green-500 to-teal-600 px-6 py-4">
+                      <h2 className="text-2xl font-bold text-white flex items-center">
+                        <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002 2v12a2 2 0 01-2 2H9a2 2 0 01-2-2V7z" />
+                          </svg>
+                        </div>
+                        Core Message Analysis
+                      </h2>
+                    </div>
+                    <div className="p-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Summary</h3>
+                          <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic">
+                              "{result.concisenessAnalysis.summary.substring(0, 200)}{result.concisenessAnalysis.summary.length > 200 ? '...' : ''}"
+                            </p>
+                          </div>
+                          <div className="mt-3 text-sm text-gray-500 dark:text-gray-400">
+                            Compression: {((result.concisenessAnalysis.summary.length / result.concisenessAnalysis.originalLength) * 100).toFixed(1)}%
+                          </div>
+                        </div>
+
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Core Message Density</h3>
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Score</span>
+                            <span className={`text-xl font-bold ${getScoreGrade(result.concisenessAnalysis.coreMessageDensity).color}`}>
+                              {result.concisenessAnalysis.coreMessageDensity}/10
+                            </span>
+                          </div>
+                          {result.concisenessAnalysis.missingKeywords.length > 0 && (
+                            <div className="mt-3">
+                              <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Missing Key Elements:</div>
+                              <div className="flex flex-wrap gap-1">
+                                {result.concisenessAnalysis.missingKeywords.map((keyword, idx) => (
+                                  <span key={idx} className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">
+                                    {keyword}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
