@@ -141,7 +141,17 @@ export default function Home() {
     }
   };
 
-  const getScoreGrade = (score: number) => {
+  const getScoreGrade = (score: number, resultGrade?: string) => {
+    // Use the grade from Hugging Face result if available
+    if (resultGrade) {
+      if (resultGrade.startsWith('A')) return { grade: resultGrade, color: 'text-emerald-400', bg: 'bg-emerald-500/20', border: 'border-emerald-400' };
+      if (resultGrade.startsWith('B')) return { grade: resultGrade, color: 'text-blue-400', bg: 'bg-blue-500/20', border: 'border-blue-400' };
+      if (resultGrade.startsWith('C')) return { grade: resultGrade, color: 'text-yellow-400', bg: 'bg-yellow-500/20', border: 'border-yellow-400' };
+      if (resultGrade.startsWith('D')) return { grade: resultGrade, color: 'text-orange-400', bg: 'bg-orange-500/20', border: 'border-orange-400' };
+      return { grade: resultGrade, color: 'text-red-400', bg: 'bg-red-500/20', border: 'border-red-400' };
+    }
+
+    // Fallback to score-based grading
     if (score >= 90) return { grade: 'A', color: 'text-emerald-400', bg: 'bg-emerald-500/20', border: 'border-emerald-400' };
     if (score >= 80) return { grade: 'B', color: 'text-blue-400', bg: 'bg-blue-500/20', border: 'border-blue-400' };
     if (score >= 70) return { grade: 'C', color: 'text-yellow-400', bg: 'bg-yellow-500/20', border: 'border-yellow-400' };
