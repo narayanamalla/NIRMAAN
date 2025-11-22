@@ -735,7 +735,14 @@ export class AdvancedScoringEngine {
     const errorsPer100Words = wordCount > 0 ? (errorCount / wordCount) * 100 : 0;
     const grammarScore = Math.max(0, 1 - Math.min(errorsPer100Words / 10, 1));
 
-    const grammarMetric = this.rubric.criteria[3].metrics[0].scoringCriteria;
+    // Use fallback scoring criteria if rubric structure is unexpected
+    const grammarMetric = this.rubric.criteria[3]?.metrics?.[0]?.scoringCriteria || {
+      "Excellent": { "min": 0.9, "max": 1.0, "score": 10 },
+      "Good": { "min": 0.7, "max": 0.89, "score": 8 },
+      "Average": { "min": 0.5, "max": 0.69, "score": 6 },
+      "Poor": { "min": 0.3, "max": 0.49, "score": 4 },
+      "Very Poor": { "min": 0.0, "max": 0.29, "score": 2 }
+    };
     for (const [level, config] of Object.entries(grammarMetric)) {
       if (grammarScore >= (config as any).min && grammarScore <= (config as any).max) {
         return {
