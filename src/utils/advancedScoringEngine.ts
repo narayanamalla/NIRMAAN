@@ -774,7 +774,14 @@ export class AdvancedScoringEngine {
     const uniqueWords = [...new Set(words)];
     const ttr = words.length > 0 ? uniqueWords.length / words.length : 0;
 
-    const ttrMetric = this.rubric.criteria[3].metrics[1].scoringCriteria;
+    // Use fallback scoring criteria if rubric structure is unexpected
+    const ttrMetric = this.rubric.criteria[3]?.metrics?.[1]?.scoringCriteria || {
+      "Excellent": { "min": 0.7, "max": 1.0, "score": 10 },
+      "Good": { "min": 0.6, "max": 0.69, "score": 8 },
+      "Average": { "min": 0.5, "max": 0.59, "score": 6 },
+      "Poor": { "min": 0.4, "max": 0.49, "score": 4 },
+      "Very Poor": { "min": 0.0, "max": 0.39, "score": 2 }
+    };
     for (const [level, config] of Object.entries(ttrMetric)) {
       if (ttr >= (config as any).min && ttr <= (config as any).max) {
         return {
