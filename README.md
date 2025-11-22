@@ -1,36 +1,208 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Communication Skills Analysis Tool
+
+An AI-powered tool for analyzing and scoring student self-introduction transcripts using a comprehensive rubric-based evaluation system.
+
+## Overview
+
+This tool analyzes spoken communication skills by evaluating transcript text against a customizable rubric. It combines three scoring approaches:
+- **Rule-based**: Keyword presence and word count validation
+- **NLP-based**: Semantic similarity using sentence embeddings
+- **Data-driven**: Weighted scoring based on rubric criteria
+
+## Features
+
+- **Transcript Input**: Paste or type student self-introduction text
+- **Real-time Scoring**: Get instant feedback with detailed breakdown
+- **Comprehensive Evaluation**:
+  - Overall score (0-100)
+  - Per-criterion scores with individual feedback
+  - Keyword matching analysis
+  - Semantic similarity scores
+  - Word count validation
+- **Visual Feedback**: Color-coded scores and progress bars
+- **Responsive Design**: Works on desktop and mobile devices
+
+## Technology Stack
+
+- **Frontend**: Next.js 16 with React 19 and TypeScript
+- **Styling**: Tailwind CSS
+- **NLP**: @xenova/transformers for sentence embeddings
+- **Text Processing**: Natural.js for basic text analysis
+- **UI Components**: Custom React components
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd NIRMAAN
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+1. **Enter Transcript**: Paste or type the student's self-introduction in the text area
+2. **Score**: Click the "Score Transcript" button to analyze
+3. **Review Results**: View the overall score and detailed breakdown by criterion
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scoring Formula
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The tool uses a weighted scoring system:
 
-## Deploy on Vercel
+```
+Criterion Score = (Keyword Score × 0.3) + (Semantic Score × 0.4) + (Word Count Score × 0.3)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Final Score = Σ(Criterion Score × Criterion Weight)
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Components:
+
+- **Keyword Score**: Percentage of rubric keywords found in transcript
+- **Semantic Score**: Cosine similarity between transcript and rubric description (0-100)
+- **Word Count Score**: 100 if within limits, penalty applied otherwise
+
+## Rubric Structure
+
+The rubric (`rubric.json`) contains:
+
+```json
+{
+  "title": "Self-Introduction Rubric",
+  "criteria": [
+    {
+      "name": "Criterion Name",
+      "description": "Description of what this criterion evaluates",
+      "weight": 0.25,
+      "keywords": ["keyword1", "keyword2"],
+      "minWords": 50,
+      "maxWords": 100
+    }
+  ]
+}
+```
+
+## Customization
+
+### Modifying the Rubric
+
+1. Edit `rubric.json` to:
+   - Add/remove criteria
+   - Adjust weights (must sum to 1.0)
+   - Update keywords
+   - Set word count limits
+
+### Adding New Scoring Logic
+
+The scoring engine (`src/utils/scoringEngine.ts`) can be extended:
+- Modify scoring weights in the `scoreTranscript` method
+- Add new analysis methods
+- Update feedback generation logic
+
+## Deployment
+
+### Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+### Environment Variables
+
+No environment variables required - all processing is done client-side using browser-compatible NLP libraries.
+
+## API Endpoint
+
+**POST** `/api/score`
+
+**Request Body:**
+```json
+{
+  "transcript": "Student's self-introduction text"
+}
+```
+
+**Response:**
+```json
+{
+  "overallScore": 85,
+  "wordCount": 52,
+  "criteria": [
+    {
+      "name": "Clarity and Conciseness",
+      "score": 90,
+      "weight": 0.25,
+      "semanticSimilarity": 0.85,
+      "keywordsFound": ["clear", "concise"],
+      "feedback": "Excellent clarity..."
+    }
+  ]
+}
+```
+
+## Testing
+
+The `test-scenarios.js` file contains sample test cases:
+
+```bash
+node test-scenarios.js
+```
+
+Use these transcripts to manually verify scoring accuracy.
+
+## Performance Notes
+
+- **First Load**: Initial NLP model loading may take a few seconds
+- **Subsequent Scoring**: Fast response after model initialization
+- **Browser Compatibility**: Works in modern browsers with WebAssembly support
+
+## Architecture
+
+```
+src/
+├── app/
+│   ├── api/score/          # API route for scoring
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Main UI component
+├── utils/
+│   └── scoringEngine.ts    # Core scoring logic
+├── rubric.json             # Evaluation rubric
+└── test-scenarios.js       # Test cases
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test with provided scenarios
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For issues or questions:
+- Check the test scenarios for expected behavior
+- Review the scoring engine documentation
+- Verify rubric configuration is correct
