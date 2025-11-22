@@ -810,7 +810,16 @@ export class AdvancedScoringEngine {
 
   private calculateClarityScore(text: string): AdvancedMetricScore {
     const words = text.toLowerCase().split(/\s+/);
-    const fillerWordsMetric = this.rubric.criteria[4];
+    const fillerWordsMetric = this.rubric.criteria[4] || {
+      fillerWords: ["um", "ah", "like", "you know", "er", "uh", "well", "so", "basically", "actually"],
+      scoringCriteria: {
+        "Excellent": { "min": 0.0, "max": 3.0, "score": 15 },
+        "Good": { "min": 3.1, "max": 6.0, "score": 12 },
+        "Average": { "min": 6.1, "max": 9.0, "score": 8 },
+        "Poor": { "min": 9.1, "max": 12.0, "score": 5 },
+        "Very Poor": { "min": 12.1, "max": 100.0, "score": 2 }
+      }
+    };
     let fillerCount = 0;
 
     for (const fillerWord of fillerWordsMetric.fillerWords) {
