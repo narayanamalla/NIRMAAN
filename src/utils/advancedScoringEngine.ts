@@ -810,19 +810,19 @@ export class AdvancedScoringEngine {
 
   private calculateClarityScore(text: string): AdvancedMetricScore {
     const words = text.toLowerCase().split(/\s+/);
-    const fillerWordsMetric = this.rubric.criteria[4] || {
-      fillerWords: ["um", "ah", "like", "you know", "er", "uh", "well", "so", "basically", "actually"],
-      scoringCriteria: {
-        "Excellent": { "min": 0.0, "max": 3.0, "score": 15 },
-        "Good": { "min": 3.1, "max": 6.0, "score": 12 },
-        "Average": { "min": 6.1, "max": 9.0, "score": 8 },
-        "Poor": { "min": 9.1, "max": 12.0, "score": 5 },
-        "Very Poor": { "min": 12.1, "max": 100.0, "score": 2 }
-      }
+    const fillerWordsMetric = this.rubric.criteria[4];
+    const fillerWordsList = fillerWordsMetric?.fillerWords || ["um", "uh", "like", "you know", "so", "actually", "basically", "right", "i mean", "well", "kinda", "sort of", "okay", "hmm", "ah"];
+    const clarityMetric = fillerWordsMetric?.scoringCriteria || {
+      "excellent": { "min": 0, "max": 3, "score": 15 },
+      "good": { "min": 4, "max": 6, "score": 12 },
+      "average": { "min": 7, "max": 9, "score": 9 },
+      "below average": { "min": 10, "max": 12, "score": 6 },
+      "poor": { "min": 13, "max": 999, "score": 3 }
     };
+
     let fillerCount = 0;
 
-    for (const fillerWord of fillerWordsMetric.fillerWords) {
+    for (const fillerWord of fillerWordsList) {
       fillerCount += words.filter(word => word.includes(fillerWord)).length;
     }
 
