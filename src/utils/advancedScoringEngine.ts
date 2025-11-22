@@ -828,7 +828,6 @@ export class AdvancedScoringEngine {
 
     const fillerRate = words.length > 0 ? (fillerCount / words.length) * 100 : 0;
 
-    const clarityMetric = fillerWordsMetric.scoringCriteria;
     for (const [level, config] of Object.entries(clarityMetric)) {
       if (fillerRate >= (config as any).min && fillerRate <= (config as any).max) {
         return {
