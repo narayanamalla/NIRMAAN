@@ -30,6 +30,21 @@ interface ScoreResult {
   duration: number;
   speechRate: number;
   criteria: CriterionScore[];
+  grade?: string;  // Added for Hugging Face scoring
+  feedback?: string[];  // Added for Hugging Face scoring
+  strengths?: string[];  // Added for Hugging Face scoring
+  improvements?: string[];  // Added for Hugging Face scoring
+  confidence?: number;  // Added for Hugging Face scoring
+  analysis?: {  // Added for Hugging Face scoring
+    clarity: number;
+    completeness: number;
+    professionalism: number;
+    engagement: number;
+    structure: number;
+  };
+  scoringMethod?: string;  // Added for Hugging Face scoring
+  detailedBreakdown?: any;  // Added for Hugging Face scoring
+  metadata?: any;  // Added for Hugging Face scoring
   advancedInsights?: {
     ruleBasedFeedback: string[];
     semanticFeedback: string[];
@@ -99,14 +114,16 @@ export default function Home() {
     setResult(null);
 
     try {
-      const response = await fetch('/api/score', {
+      const response = await fetch('/api/hf-score', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           transcript,
-          duration: duration ? parseFloat(duration) : 0
+          duration: duration ? parseFloat(duration) : 0,
+          useHuggingFace: true,  // Use Hugging Face by default
+          useAdvanced: true      // Enable advanced features
         }),
       });
 
@@ -124,7 +141,17 @@ export default function Home() {
     }
   };
 
-  const getScoreGrade = (score: number) => {
+  const getScoreGrade = (score: number, resultGrade?: string) => {
+    // Use the grade from Hugging Face result if available
+    if (resultGrade) {
+      if (resultGrade.startsWith('A')) return { grade: resultGrade, color: 'text-emerald-400', bg: 'bg-emerald-500/20', border: 'border-emerald-400' };
+      if (resultGrade.startsWith('B')) return { grade: resultGrade, color: 'text-blue-400', bg: 'bg-blue-500/20', border: 'border-blue-400' };
+      if (resultGrade.startsWith('C')) return { grade: resultGrade, color: 'text-yellow-400', bg: 'bg-yellow-500/20', border: 'border-yellow-400' };
+      if (resultGrade.startsWith('D')) return { grade: resultGrade, color: 'text-orange-400', bg: 'bg-orange-500/20', border: 'border-orange-400' };
+      return { grade: resultGrade, color: 'text-red-400', bg: 'bg-red-500/20', border: 'border-red-400' };
+    }
+
+    // Fallback to score-based grading
     if (score >= 90) return { grade: 'A', color: 'text-emerald-400', bg: 'bg-emerald-500/20', border: 'border-emerald-400' };
     if (score >= 80) return { grade: 'B', color: 'text-blue-400', bg: 'bg-blue-500/20', border: 'border-blue-400' };
     if (score >= 70) return { grade: 'C', color: 'text-yellow-400', bg: 'bg-yellow-500/20', border: 'border-yellow-400' };
@@ -346,12 +373,12 @@ Example: 'Hello everyone, my name is Sarah. I am 15 years old and I'm studying i
                       </div>
                       <div className="p-6">
                         <div className="text-center">
-                          <div className={`text-5xl font-bold ${getScoreGrade(result.overallScore).color} mb-2`}>
+                          <div className={`text-5xl font-bold ${getScoreGrade(result.overallScore, result.grade).color} mb-2`}>
                             {result.overallScore}
                           </div>
                           <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">out of {result.maxOverallScore}</div>
-                          <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-bold ${getScoreGrade(result.overallScore).bg} ${getScoreGrade(result.overallScore).color} border ${getScoreGrade(result.overallScore).border}`}>
-                            Grade {getScoreGrade(result.overallScore).grade}
+                          <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-bold ${getScoreGrade(result.overallScore, result.grade).bg} ${getScoreGrade(result.overallScore, result.grade).color} border ${getScoreGrade(result.overallScore, result.grade).border}`}>
+                            Grade {getScoreGrade(result.overallScore, result.grade).grade}
                           </div>
                         </div>
                         <div className="mt-6 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
