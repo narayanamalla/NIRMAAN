@@ -520,7 +520,6 @@ Example: 'Hello everyone, my name is Sarah. I am 15 years old and I'm studying i
                   </div>
                 </div>
               </div>
-
               {/* Advanced Insights Section */}
               {result.advancedInsights && (
                 <div className="group relative">
