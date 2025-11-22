@@ -373,12 +373,12 @@ Example: 'Hello everyone, my name is Sarah. I am 15 years old and I'm studying i
                       </div>
                       <div className="p-6">
                         <div className="text-center">
-                          <div className={`text-5xl font-bold ${getScoreGrade(result.overallScore).color} mb-2`}>
+                          <div className={`text-5xl font-bold ${getScoreGrade(result.overallScore, result.grade).color} mb-2`}>
                             {result.overallScore}
                           </div>
                           <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">out of {result.maxOverallScore}</div>
-                          <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-bold ${getScoreGrade(result.overallScore).bg} ${getScoreGrade(result.overallScore).color} border ${getScoreGrade(result.overallScore).border}`}>
-                            Grade {getScoreGrade(result.overallScore).grade}
+                          <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-bold ${getScoreGrade(result.overallScore, result.grade).bg} ${getScoreGrade(result.overallScore, result.grade).color} border ${getScoreGrade(result.overallScore, result.grade).border}`}>
+                            Grade {getScoreGrade(result.overallScore, result.grade).grade}
                           </div>
                         </div>
                         <div className="mt-6 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
