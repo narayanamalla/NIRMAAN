@@ -30,6 +30,21 @@ interface ScoreResult {
   duration: number;
   speechRate: number;
   criteria: CriterionScore[];
+  grade?: string;  // Added for Hugging Face scoring
+  feedback?: string[];  // Added for Hugging Face scoring
+  strengths?: string[];  // Added for Hugging Face scoring
+  improvements?: string[];  // Added for Hugging Face scoring
+  confidence?: number;  // Added for Hugging Face scoring
+  analysis?: {  // Added for Hugging Face scoring
+    clarity: number;
+    completeness: number;
+    professionalism: number;
+    engagement: number;
+    structure: number;
+  };
+  scoringMethod?: string;  // Added for Hugging Face scoring
+  detailedBreakdown?: any;  // Added for Hugging Face scoring
+  metadata?: any;  // Added for Hugging Face scoring
   advancedInsights?: {
     ruleBasedFeedback: string[];
     semanticFeedback: string[];
