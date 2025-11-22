@@ -27,66 +27,80 @@ async function testAdvancedScoring() {
     console.log('Overall Score:', result.overallScore + '/100');
 
     console.log('\n📊 Detailed Breakdown:');
-    for (const [criterion, data] of Object.entries(result.detailedBreakdown)) {
-      console.log(`\n${criterion}: ${data.score}/${data.maxScore}`);
-      if (data.metrics) {
-        for (const [metric, value] of Object.entries(data.metrics)) {
-          console.log(`  - ${metric}: ${value}`);
+    for (const criterion of result.criteria) {
+      console.log(`\n${criterion.name}: ${criterion.score}/${criterion.maxScore}`);
+      if (criterion.metrics) {
+        for (const metric of criterion.metrics) {
+          console.log(`  - ${metric.name}: ${metric.score}/${metric.maxScore} - ${metric.details}`);
         }
       }
     }
 
     // Test Three-Tiered Recommendations
-    if (result.tieredRecommendations) {
+    if (result.advancedInsights && result.advancedInsights.tieredRecommendations) {
       console.log('\n🎯 Three-Tiered Recommendations:');
 
-      if (result.tieredRecommendations.ruleBased) {
+      if (result.advancedInsights.tieredRecommendations.ruleBased) {
         console.log('\n  🔧 Rule-Based:');
-        result.tieredRecommendations.ruleBased.forEach(rec => {
+        result.advancedInsights.tieredRecommendations.ruleBased.forEach(rec => {
           console.log(`    • ${rec}`);
         });
       }
 
-      if (result.tieredRecommendations.semantic) {
+      if (result.advancedInsights.tieredRecommendations.semantic) {
         console.log('\n  🧠 Semantic:');
-        result.tieredRecommendations.semantic.forEach(rec => {
+        result.advancedInsights.tieredRecommendations.semantic.forEach(rec => {
           console.log(`    • ${rec}`);
         });
       }
 
-      if (result.tieredRecommendations.advanced) {
+      if (result.advancedInsights.tieredRecommendations.advancedNLP) {
         console.log('\n  🚀 Advanced NLP:');
-        result.tieredRecommendations.advanced.forEach(rec => {
+        result.advancedInsights.tieredRecommendations.advancedNLP.forEach(rec => {
           console.log(`    • ${rec}`);
         });
       }
     }
 
-    // Test AI-Powered Insights
-    if (result.nlpInsights) {
-      console.log('\n🤖 AI-Powered Insights:');
-
-      if (result.nlpInsights.politenessAnalysis) {
-        console.log('\n  Politeness & Professionalism:');
-        console.log(`    Level: ${result.nlpInsights.politenessAnalysis.level}/5`);
-        console.log(`    Sentiment: ${result.nlpInsights.politenessAnalysis.sentiment}`);
-        if (result.nlpInsights.politenessAnalysis.professionalElements) {
-          console.log(`    Professional Elements: ${result.nlpInsights.politenessAnalysis.professionalElements.join(', ')}`);
-        }
+    // Test Conciseness Analysis
+    if (result.concisenessAnalysis) {
+      console.log('\n📝 Conciseness & Core Message Analysis:');
+      console.log(`  Original Length: ${result.concisenessAnalysis.originalLength} characters`);
+      console.log(`  Summary Length: ${result.concisenessAnalysis.summary.length} characters`);
+      console.log(`  Core Message Density: ${(result.concisenessAnalysis.coreMessageDensity * 100).toFixed(1)}%`);
+      console.log(`  Summary: "${result.concisenessAnalysis.summary}"`);
+      if (result.concisenessAnalysis.missingKeywords.length > 0) {
+        console.log(`  Missing Keywords: ${result.concisenessAnalysis.missingKeywords.join(', ')}`);
       }
+    }
 
-      if (result.nlpInsights.coherenceAnalysis) {
-        console.log('\n  Discourse Coherence:');
-        console.log(`    Score: ${result.nlpInsights.coherenceAnalysis.score}/5`);
-        console.log(`    Flow Quality: ${result.nlpInsights.coherenceAnalysis.flowQuality}`);
-      }
-
-      if (result.nlpInsights.concisenessAnalysis) {
-        console.log('\n  Conciseness & Core Message:');
-        console.log(`    Efficiency: ${result.nlpInsights.concisenessAnalysis.efficiency}/5`);
-        console.log(`    Core Message Density: ${result.nlpInsights.concisenessAnalysis.coreMessageDensity}/5`);
-        if (result.nlpInsights.concisenessAnalysis.summary) {
-          console.log(`    Summary: "${result.nlpInsights.concisenessAnalysis.summary}"`);
+    // Test NLP Insights from metrics
+    console.log('\n🤖 AI-Powered Insights:');
+    for (const criterion of result.criteria) {
+      for (const metric of criterion.metrics) {
+        if (metric.nlpInsights) {
+          console.log(`\n  ${metric.name} NLP Analysis:`);
+          if (metric.nlpInsights.modelAnalysis) {
+            console.log(`    • Analysis: ${metric.nlpInsights.modelAnalysis}`);
+          }
+          if (metric.nlpInsights.recommendations && metric.nlpInsights.recommendations.length > 0) {
+            console.log('    • Recommendations:');
+            metric.nlpInsights.recommendations.forEach(rec => {
+              console.log(`      - ${rec}`);
+            });
+          }
+          if (metric.nlpInsights.detectedStrengths && metric.nlpInsights.detectedStrengths.length > 0) {
+            console.log('    • Strengths:');
+            metric.nlpInsights.detectedStrengths.forEach(strength => {
+              console.log(`      - ${strength}`);
+            });
+          }
+          if (metric.nlpInsights.detectedIssues && metric.nlpInsights.detectedIssues.length > 0) {
+            console.log('    • Issues:');
+            metric.nlpInsights.detectedIssues.forEach(issue => {
+              console.log(`      - ${issue}`);
+            });
+          }
         }
       }
     }
