@@ -99,7 +99,8 @@ export class ScoringEngine {
     score: number,
     wordCountScore: number,
     semanticSimilarity: number,
-    keywordsFound: string[]
+    keywordsFound: string[],
+    wordCount: number
   ): string {
     const feedback: string[] = [];
 
