@@ -1,4 +1,4 @@
-import { Pipeline } from '@xenova/transformers';
+import { pipeline } from '@xenova/transformers';
 import rubricData from '../../rubric.json';
 
 export interface RubricCriterion {
