@@ -112,12 +112,12 @@ async function testAdvancedScoring() {
 
     // Validate against expected results
     console.log('\n📋 Validation Summary:');
-    console.log(`✓ Advanced NLP features implemented: ${result.nlpInsights ? 'YES' : 'NO'}`);
-    console.log(`✓ Three-tiered recommendations: ${result.tieredRecommendations ? 'YES' : 'NO'}`);
-    console.log(`✓ Politeness analysis: ${result.nlpInsights?.politenessAnalysis ? 'YES' : 'NO'}`);
-    console.log(`✓ Coherence analysis: ${result.nlpInsights?.coherenceAnalysis ? 'YES' : 'NO'}`);
-    console.log(`✓ Core message analysis: ${result.nlpInsights?.concisenessAnalysis ? 'YES' : 'NO'}`);
-    console.log(`✓ Tone & Register criterion: ${result.detailedBreakdown['Tone & Register'] ? 'YES' : 'NO'}`);
+    console.log(`✓ Advanced NLP features implemented: ${result.advancedInsights ? 'YES' : 'NO'}`);
+    console.log(`✓ Three-tiered recommendations: ${result.advancedInsights?.tieredRecommendations ? 'YES' : 'NO'}`);
+    console.log(`✓ Conciseness analysis: ${result.concisenessAnalysis ? 'YES' : 'NO'}`);
+    console.log(`✓ Tone & Register criterion: ${result.criteria.some(c => c.name === 'Tone & Register') ? 'YES' : 'NO'}`);
+    console.log(`✓ NLP insights in metrics: ${result.criteria.some(c => c.metrics?.some(m => m.nlpInsights)) ? 'YES' : 'NO'}`);
+    console.log(`✓ AI-powered recommendations generated: ${result.advancedInsights?.tieredRecommendations?.advancedNLP?.length > 0 ? 'YES' : 'NO'}`);
 
   } catch (error) {
     console.error('\n❌ Advanced Scoring test failed:');
