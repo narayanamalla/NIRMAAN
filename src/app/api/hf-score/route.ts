@@ -6,7 +6,10 @@ import { ScoringEngine } from '@/utils/scoringEngine';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { transcript, duration, useAdvanced = true, useHuggingFace = true } = body;
+    const { transcript, duration, useAdvanced: initialUseAdvanced = true, useHuggingFace: initialUseHuggingFace = true } = body;
+
+    let useAdvanced = initialUseAdvanced;
+    let useHuggingFace = initialUseHuggingFace;
 
     if (!transcript) {
       return NextResponse.json(
