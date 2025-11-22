@@ -51,7 +51,7 @@ async function testHuggingFaceScoring() {
     console.log(`Transcript: "${test.transcript.substring(0, 100)}${test.transcript.length > 100 ? '...' : ''}"`);
 
     try {
-      const response = await fetch('http://localhost:3000/api/hf-score', {
+      const response = await fetch('http://localhost:3001/api/hf-score', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
