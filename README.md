@@ -11,16 +11,23 @@ This tool analyzes spoken communication skills by evaluating transcript text aga
 
 ## Features
 
-- **Transcript Input**: Paste or type student self-introduction text
-- **Real-time Scoring**: Get instant feedback with detailed breakdown
+- **Modern UI Design**: Beautiful gradient backgrounds, card-based layout, and professional styling
+- **Enhanced Transcript Input**: Large textarea with helpful placeholder text and real-time word counting
+- **Smart Scoring Animation**: Loading states with spinning indicators and smooth transitions
 - **Comprehensive Evaluation**:
-  - Overall score (0-100)
-  - Per-criterion scores with individual feedback
-  - Keyword matching analysis
-  - Semantic similarity scores
-  - Word count validation
-- **Visual Feedback**: Color-coded scores and progress bars
-- **Responsive Design**: Works on desktop and mobile devices
+  - Overall score with letter grade (A-F)
+  - Per-criterion scores with individual metric breakdowns
+  - Detailed feedback for each scoring component
+  - Speech rate calculation with WPM indicators
+  - Word count validation and duration tracking
+- **Rich Visual Feedback**:
+  - Gradient progress bars with animated fills
+  - Color-coded performance indicators (Emerald/Blue/Yellow/Orange/Red)
+  - Interactive hover effects and smooth transitions
+  - Professional card-based layout with shadows
+- **Quick Stats Sidebar**: Real-time statistics and helpful tips
+- **Responsive Design**: Fully optimized for desktop, tablet, and mobile devices
+- **Accessibility**: Proper labels, keyboard navigation, and screen reader support
 
 ## Technology Stack
 
