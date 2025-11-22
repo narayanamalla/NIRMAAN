@@ -174,7 +174,8 @@ export class ScoringEngine {
         combinedScore,
         wordCountScore,
         semanticSimilarity,
-        keywordsFound
+        keywordsFound,
+        wordCount
       );
 
       criteriaScores.push({
