@@ -600,6 +600,7 @@ export class AdvancedScoringEngine {
     return {
       ruleBasedFeedback,
       semanticFeedback,
+      nlpFeedback,
       tieredRecommendations: {
         ruleBased: ruleBasedFeedback,
         semantic: semanticFeedback,
