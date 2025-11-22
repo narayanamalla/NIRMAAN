@@ -28,6 +28,7 @@ interface ScoreResult {
 
 export default function Home() {
   const [transcript, setTranscript] = useState('');
+  const [duration, setDuration] = useState('');
   const [isScoring, setIsScoring] = useState(false);
   const [result, setResult] = useState<ScoreResult | null>(null);
   const [error, setError] = useState<string | null>(null);
