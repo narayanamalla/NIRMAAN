@@ -40,7 +40,7 @@ export class ScoringEngine {
 
   async initializePipeline(): Promise<void> {
     if (!this.pipeline) {
-      this.pipeline = await Pipeline.getInstance('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+      this.pipeline = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
     }
   }
 
