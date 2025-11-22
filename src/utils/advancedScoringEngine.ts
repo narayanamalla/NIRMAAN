@@ -1,5 +1,5 @@
 import { pipeline } from '@xenova/transformers';
-import rubricData from '../../rubric.json';
+import rubricData from '../../rubric.json' with { type: 'json' };
 import Sentiment from 'sentiment';
 
 export interface AdvancedMetricScore {
