@@ -99,14 +99,16 @@ export default function Home() {
     setResult(null);
 
     try {
-      const response = await fetch('/api/score', {
+      const response = await fetch('/api/hf-score', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           transcript,
-          duration: duration ? parseFloat(duration) : 0
+          duration: duration ? parseFloat(duration) : 0,
+          useHuggingFace: true,  // Use Hugging Face by default
+          useAdvanced: true      // Enable advanced features
         }),
       });
 
