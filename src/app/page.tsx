@@ -147,88 +147,92 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 Overall Results
               </h2>
-              <div className="flex items-center justify-between">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                   <div className="text-sm text-gray-500">Overall Score</div>
-                  <div className={`text-4xl font-bold ${getScoreColor(result.overallScore)}`}>
-                    {result.overallScore}/100
+                  <div className={`text-3xl font-bold ${getScoreColor(result.overallScore)}`}>
+                    {result.overallScore}/{result.maxOverallScore}
                   </div>
                 </div>
-                <div className="text-right">
+                <div>
                   <div className="text-sm text-gray-500">Word Count</div>
                   <div className="text-2xl font-semibold text-gray-900">
                     {result.wordCount}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500">Duration</div>
+                  <div className="text-2xl font-semibold text-gray-900">
+                    {result.duration}s
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500">Speech Rate</div>
+                  <div className="text-2xl font-semibold text-gray-900">
+                    {result.speechRate} WPM
                   </div>
                 </div>
               </div>
               <div className="mt-4 w-full bg-gray-200 rounded-full h-3">
                 <div
                   className={`h-3 rounded-full transition-all duration-500 ${getScoreBackground(result.overallScore)}`}
-                  style={{ width: `${result.overallScore}%` }}
+                  style={{ width: `${(result.overallScore / result.maxOverallScore) * 100}%` }}
                 />
               </div>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Detailed Breakdown
+                Detailed Rubric Breakdown
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {result.criteria.map((criterion, index) => (
-                  <div key={index} className="border-b border-gray-200 last:border-b-0 pb-6 last:pb-0">
-                    <div className="flex items-start justify-between mb-3">
+                  <div key={index} className="border-b border-gray-200 last:border-b-0 pb-8 last:pb-0">
+                    <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
                         <h3 className="text-lg font-semibold text-gray-900">
                           {criterion.name}
                         </h3>
                         <p className="text-sm text-gray-500">
-                          Weight: {(criterion.weight * 100).toFixed(0)}%
+                          Weight: {(criterion.weight * 100).toFixed(0)}% | Score: {criterion.score}/{criterion.maxScore}
                         </p>
                       </div>
                       <div className="text-right">
-                        <div className={`text-2xl font-bold ${getScoreColor(criterion.score)}`}>
-                          {criterion.score}/100
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          Semantic: {criterion.semanticSimilarity.toFixed(2)}
+                        <div className={`text-2xl font-bold ${getScoreColor((criterion.score / criterion.maxScore) * 100)}`}>
+                          {criterion.score}/{criterion.maxScore}
                         </div>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
-                      <div>
-                        <div className="text-sm font-medium text-gray-700 mb-1">Keywords Found</div>
-                        <div className="flex flex-wrap gap-1">
-                          {criterion.keywordsFound.length > 0 ? (
-                            criterion.keywordsFound.map((keyword, idx) => (
-                              <span
-                                key={idx}
-                                className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
-                              >
-                                {keyword}
-                              </span>
-                            ))
-                          ) : (
-                            <span className="text-gray-400 text-sm">No keywords found</span>
-                          )}
+                    <div className="space-y-4">
+                      {criterion.metrics.map((metric, metricIndex) => (
+                        <div key={metricIndex} className="bg-gray-50 p-4 rounded-md">
+                          <div className="flex items-start justify-between mb-2">
+                            <h4 className="text-sm font-medium text-gray-900">
+                              {metric.name}
+                            </h4>
+                            <div className={`text-sm font-bold ${getScoreColor((metric.score / metric.maxScore) * 100)}`}>
+                              {metric.score}/{metric.maxScore}
+                            </div>
+                          </div>
+                          <div className="text-xs text-gray-600 mb-2">
+                            {metric.details}
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                              className={`h-2 rounded-full transition-all duration-500 ${getScoreBackground((metric.score / metric.maxScore) * 100)}`}
+                              style={{ width: `${(metric.score / metric.maxScore) * 100}%` }}
+                            />
+                          </div>
                         </div>
-                      </div>
+                      ))}
                     </div>
 
-                    <div className="mt-3">
-                      <div className="text-sm font-medium text-gray-700 mb-1">Feedback</div>
-                      <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
-                        {criterion.feedback}
-                      </div>
-                    </div>
-
-                    <div className="mt-3">
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className={`h-2 rounded-full transition-all duration-500 ${getScoreBackground(criterion.score)}`}
-                          style={{ width: `${criterion.score}%` }}
-                        />
-                      </div>
+                    <div className="mt-4 w-full bg-gray-200 rounded-full h-3">
+                      <div
+                        className={`h-3 rounded-full transition-all duration-500 ${getScoreBackground((criterion.score / criterion.maxScore) * 100)}`}
+                        style={{ width: `${(criterion.score / criterion.maxScore) * 100}%` }}
+                      />
                     </div>
                   </div>
                 ))}
