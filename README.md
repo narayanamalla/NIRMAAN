@@ -11,23 +11,40 @@ This tool analyzes spoken communication skills by evaluating transcript text aga
 
 ## Features
 
-- **Modern UI Design**: Beautiful gradient backgrounds, card-based layout, and professional styling
-- **Enhanced Transcript Input**: Large textarea with helpful placeholder text and real-time word counting
-- **Smart Scoring Animation**: Loading states with spinning indicators and smooth transitions
-- **Comprehensive Evaluation**:
-  - Overall score with letter grade (A-F)
-  - Per-criterion scores with individual metric breakdowns
-  - Detailed feedback for each scoring component
-  - Speech rate calculation with WPM indicators
-  - Word count validation and duration tracking
-- **Rich Visual Feedback**:
-  - Gradient progress bars with animated fills
-  - Color-coded performance indicators (Emerald/Blue/Yellow/Orange/Red)
-  - Interactive hover effects and smooth transitions
-  - Professional card-based layout with shadows
-- **Quick Stats Sidebar**: Real-time statistics and helpful tips
-- **Responsive Design**: Fully optimized for desktop, tablet, and mobile devices
-- **Accessibility**: Proper labels, keyboard navigation, and screen reader support
+### 🎨 **Advanced UI Design**
+- **Glassmorphism Effects**: Modern frosted glass appearance with backdrop blur
+- **Dark Mode Support**: Complete dark theme with automatic system preference detection
+- **Animated Backgrounds**: Floating orbs, gradient overlays, and subtle grid patterns
+- **Micro-interactions**: Hover effects, smooth transitions, and animated progress bars
+- **Gradient Borders**: Glowing border effects on cards and interactive elements
+
+### 🚀 **Enhanced User Experience**
+- **Smart Loading States**: Step-by-step analyzing animation with contextual messages
+- **Interactive Score Cards**: Hover effects and color-coded performance indicators
+- **Real-time Feedback**: Live word counting and instant visual responses
+- **Professional Animations**: Smooth transitions, pulse effects, and scaling interactions
+- **Theme Toggle**: Seamless light/dark mode switching with persistence
+
+### 📊 **Comprehensive Evaluation**
+- **Overall Score**: Large, prominent display with letter grades (A-F)
+- **Detailed Rubric Analysis**: Individual metric cards with breakdowns
+- **Progress Visualization**: Animated gradient progress bars
+- **Performance Insights**: Color-coded feedback and suggestions
+- **Quick Stats Dashboard**: Word count, duration, and speech rate metrics
+
+### ✨ **Visual Excellence**
+- **Modern Typography**: Gradient text effects and professional font hierarchy
+- **Icon Integration**: Meaningful icons throughout the interface
+- **Emoji Tips**: Engaging visual cues in the tips section
+- **Shadow Effects**: Multi-layered shadows for depth and dimension
+- **Responsive Gradients**: Adaptive color schemes based on performance
+
+### 🎯 **Smart Features**
+- **Persistent Settings**: Theme preference saved to localStorage
+- **Mobile Optimization**: Touch-friendly interactions and responsive layouts
+- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support
+- **Performance Optimized**: Efficient animations and transitions
+- **Cross-browser Compatible**: Works seamlessly across all modern browsers
 
 ## Technology Stack
 
