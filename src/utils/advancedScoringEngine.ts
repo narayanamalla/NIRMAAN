@@ -860,7 +860,14 @@ export class AdvancedScoringEngine {
     const positivityScore = sentimentResult.positive.length > 0 ?
       sentimentResult.positive.length / (sentimentResult.positive.length + sentimentResult.negative.length) : 0.5;
 
-    const engagementMetric = this.rubric.criteria[5].scoringCriteria;
+    // Use fallback scoring criteria if rubric structure is unexpected
+    const engagementMetric = this.rubric.criteria[5]?.scoringCriteria || {
+      "Excellent": { "min": 0.8, "max": 1.0, "score": 15 },
+      "Good": { "min": 0.6, "max": 0.79, "score": 12 },
+      "Average": { "min": 0.4, "max": 0.59, "score": 9 },
+      "Poor": { "min": 0.2, "max": 0.39, "score": 6 },
+      "Very Poor": { "min": 0.0, "max": 0.19, "score": 3 }
+    };
     for (const [level, config] of Object.entries(engagementMetric)) {
       if (positivityScore >= (config as any).min && positivityScore <= (config as any).max) {
         return {
