@@ -1,0 +1,29 @@
+{
+  "title": "Self-Introduction Rubric",
+  "criteria": [
+    {
+      "name": "Clarity and Conciseness",
+      "description": "The student's introduction is clear, concise, and easy to understand.",
+      "weight": 0.25,
+      "keywords": ["clear", "concise", "specific", "relevant"],
+      "minWords": 40,
+      "maxWords": 60
+    },
+    {
+      "name": "Professionalism",
+      "description": "The student uses professional language and tone.",
+      "weight": 0.25,
+      "keywords": ["professional", "experienced", "skilled", "background"],
+      "minWords": 50,
+      "maxWords": 80
+    },
+    {
+      "name": "Relevance",
+      "description": "The introduction is relevant to the context and audience.",
+      "weight": 0.5,
+      "keywords": ["relevant", "audience", "context", "purpose"],
+      "minWords": 30,
+      "maxWords": 50
+    }
+  ]
+}
