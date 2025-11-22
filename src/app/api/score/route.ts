@@ -4,7 +4,7 @@ import { ScoringEngine } from '@/utils/scoringEngine';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { transcript } = body;
+    const { transcript, duration } = body;
 
     if (!transcript) {
       return NextResponse.json(
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     const scoringEngine = new ScoringEngine();
-    const result = await scoringEngine.scoreTranscript(transcript);
+    const result = await scoringEngine.scoreTranscript(transcript, duration || 0);
 
     return NextResponse.json(result);
   } catch (error) {
