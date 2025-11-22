@@ -558,7 +558,12 @@ export class AdvancedScoringEngine {
       speechRate,
       criteria,
       advancedInsights: recommendations,
-      concisenessAnalysis: densityAnalysis
+      concisenessAnalysis: {
+        originalLength: transcript.length,
+        summary: summary,
+        coreMessageDensity: densityAnalysis.densityScore / 10, // Normalize to 0-1
+        missingKeywords: densityAnalysis.missingKeywords
+      }
     };
   }
 
