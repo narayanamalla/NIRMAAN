@@ -104,10 +104,27 @@ export default function Home() {
             className="w-full h-40 p-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
             disabled={isScoring}
           />
-          <div className="mt-4 flex items-center justify-between">
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="text-sm text-gray-500">
               {transcript.trim().split(/\s+/).filter(word => word.length > 0).length} words
             </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Duration (seconds)
+              </label>
+              <input
+                type="number"
+                value={duration}
+                onChange={(e) => setDuration(e.target.value)}
+                placeholder="e.g., 52"
+                className="w-full px-3 py-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                disabled={isScoring}
+                min="0"
+                step="0.1"
+              />
+            </div>
+          </div>
+          <div className="mt-4 flex justify-end">
             <button
               onClick={handleScoreTranscript}
               disabled={isScoring || !transcript.trim()}
